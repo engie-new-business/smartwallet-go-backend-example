@@ -3,16 +3,15 @@ package rockside
 import (
 	"encoding/json"
 	"fmt"
+	"io/ioutil"
 	"net/http"
 	"os"
-	"io/ioutil"
 
 	"github.com/rocksideio/rockside-sdk-go"
 )
 
-
 type ParamsRequest struct {
-	Address        string `json:"address"`
+	Address string `json:"address"`
 }
 
 type ErrorResponse struct {

@@ -11,8 +11,8 @@ import (
 )
 
 type RelayRequest struct {
-	To        string `json:"to"`
-	Data      string `json:"data"`
+	To   string `json:"to"`
+	Data string `json:"data"`
 }
 
 type ErrorResponse struct {
@@ -25,10 +25,9 @@ func Execute(w http.ResponseWriter, r *http.Request) {
 	networks, ok := r.URL.Query()["network"]
 
 	if !ok || len(networks[0]) < 1 {
-			replyError(w, http.StatusInternalServerError, "Url Param 'network' is missing")
-			return
+		replyError(w, http.StatusInternalServerError, "Url Param 'network' is missing")
+		return
 	}
-
 
 	network := rockside.Network(networks[0])
 	rocksideAPIclient, err := rockside.NewClientFromAPIKey(os.Getenv("APIKEY"), network, os.Getenv("BASE_URL"))
@@ -50,7 +49,6 @@ func Execute(w http.ResponseWriter, r *http.Request) {
 		replyError(w, http.StatusInternalServerError, "Error parsing request")
 		return
 	}
-
 
 	rocksideRequest := rockside.RelayTx{Speed: "fastest", Data: relayRequest.Data}
 	response, err := rocksideAPIclient.Relay.Relay(relayRequest.To, rocksideRequest)
