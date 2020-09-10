@@ -1,4 +1,4 @@
-# Smartwallet backend example
+# Smartwallet go backend example
 
 This repository contains example of backend services you can develop using Rockside. Thoses services can be used for example to manage a smartwallet on ios or android client application.
 
