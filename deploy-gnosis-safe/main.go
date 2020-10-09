@@ -89,9 +89,12 @@ func Execute(w http.ResponseWriter, r *http.Request) {
 	}
 
 	mathRand.Seed(time.Now().UnixNano())
-	channerInt := mathRand.Intn(20)
+	channerInt := mathRand.Intn(50)
+	channelString := strconv.Itoa(channerInt)
 
-	params, err := rocksideAPIclient.Forwarder.GetRelayParams(os.Getenv("FORWARDER_ADDRESS"), os.Getenv("ADMIN_ADDRESS"), strconv.Itoa(channerInt))
+	fmt.Println("CHANNEL : " + channelString)
+
+	params, err := rocksideAPIclient.Forwarder.GetRelayParams(os.Getenv("FORWARDER_ADDRESS"), os.Getenv("ADMIN_ADDRESS"), channelString)
 	if err != nil {
 		replyError(w, http.StatusBadRequest, err.Error())
 		return
