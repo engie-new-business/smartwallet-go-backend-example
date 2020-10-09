@@ -6,9 +6,12 @@ import (
 	"fmt"
 	"io/ioutil"
 	"math/big"
+	mathRand "math/rand"
 	"net/http"
 	"os"
+	"strconv"
 	"strings"
+	"time"
 
 	"github.com/ethereum/go-ethereum/accounts/abi"
 	"github.com/ethereum/go-ethereum/common"
@@ -85,7 +88,10 @@ func Execute(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	params, err := rocksideAPIclient.Forwarder.GetRelayParams(os.Getenv("FORWARDER_ADDRESS"), os.Getenv("ADMIN_ADDRESS"), "0")
+	mathRand.Seed(time.Now().UnixNano())
+	channerInt := mathRand.Intn(20)
+
+	params, err := rocksideAPIclient.Forwarder.GetRelayParams(os.Getenv("FORWARDER_ADDRESS"), os.Getenv("ADMIN_ADDRESS"), strconv.Itoa(channerInt))
 	if err != nil {
 		replyError(w, http.StatusBadRequest, err.Error())
 		return
